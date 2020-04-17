@@ -1,0 +1,35 @@
+{% extends "./base.html" %}
+{% block title %}ciné-séries{% endblock %}
+{% block content %}
+    Cinéma {{ cinema.nom }}
+    {# Si authentifié et a un user_profile (Tous les utilisateurs n'ont pas forcément un user_profile. Ex: admin) #}
+    {% if user.is_authenticated and user.user_profile  %}
+        {% if cinema in user.user_profile.cinemas.all %} {# Si film favori #}
+            <a href="{% url 'unlike' toLike='cinema' uid=cinema.id %}"><button>Unlike</button></a>
+        {% else %} {# Si pas film favori #}
+            <a href="{% url 'like' toLike='cinema' uid=cinema.id %}"><button>Like</button></a>
+        {% endif %}
+    {% endif %}
+    <br />
+    <br />
+    Films à disponibles dans ce cinéma
+    <ul>
+    {% for film in cinema.films_cinemas.all %}
+        <div class="row">
+            <div class="col">
+                <li class="breadcrumb">{{ film.titre }}<br />
+                    {{ film.synopsis }}<br />
+	            </li>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'film' id_film=film.id %}">
+                <img src="{{ film.affiche.url }}" />
+                </a>
+            </div>
+        </div>
+
+        <p>&nbsp;</p>
+    {% endfor %}
+    </ul>
+{% endblock %}

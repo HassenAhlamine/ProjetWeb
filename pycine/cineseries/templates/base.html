@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="description" content="{% block description %}{% endblock description %}" />
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" media="screen" />
+        <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+        <script src="https://kit.fontawesome.com/fd543fa652.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header id="mainHeader">
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'user_account' %}">Mon compte</a></li>
+                    <li><a href="{% url 'user_logout' %}">Se déconnecter</a></li>
+                {% else %}
+                    <li><a href="{% url 'user_register' %}">Créer un compte</a></li>
+                    <li><a href="{% url 'user_login' %}">Se connecter</a></li>
+                {% endif %}
+                <li><a href="{% url 'cinemas' %}">Cinémas</a></li>
+                <li><a href="{% url 'films' %}">Films</a></li>
+            </ul>
+        </header>
+        <section>
+            {% block content %}{% endblock content %}
+        </section>
+        <footer id="mainFooter">
+
+        </footer>
+    </body>
+</html>

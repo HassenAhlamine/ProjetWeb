@@ -1,0 +1,23 @@
+{% extends "./base.html" %}
+{% block title %}ciné-séries{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <p class="text-left">
+                <table class="table">
+                {% for cinema in cinemas %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'cinema' id_cinema=cinema.id %}">
+                            {{ cinema.nom }}
+                            </a><br />
+                            {{ cinema.adresse }}, {{ cinema.code_postal }} {{ cinema.ville }}<br />
+                            <br />
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </p>
+        </div>
+    </div>
+{% endblock %}
