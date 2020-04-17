@@ -1,6 +1,7 @@
 from django.db import models
 
-class Classification(models.Model): # Classification CSA
+# Classification CSA
+class Classification(models.Model):
     libelle = models.CharField(max_length=40, null=False, verbose_name='Classification')
 
     class Meta:
@@ -10,7 +11,8 @@ class Classification(models.Model): # Classification CSA
     def __str__(self):
         return '{}'.format(self.libelle)
 
-class Genre(models.Model): # Comédie, Thriller, Drame...
+# Comédie, Thriller, Drame...
+class Genre(models.Model):
     libelle = models.CharField(max_length=30, null=False, verbose_name='Genre')
 
     class Meta:
@@ -20,7 +22,8 @@ class Genre(models.Model): # Comédie, Thriller, Drame...
     def __str__(self):
         return '{}'.format(self.libelle)
 
-class Version(models.Model): # VO, VF, VOSTFR...
+# VO, VF, VOSTFR...
+class Version(models.Model):
     libelle = models.CharField(max_length=10, null=False, verbose_name='Version')
 
     class Meta:
@@ -178,10 +181,12 @@ class Realisateur(models.Model):
     def __str__(self):
         return '{}'.format(self.nom)
 
-from django.contrib.auth.models import User #Accès aux modèles Django de gestion des utilisateurs
+ #Accès aux modèles Django de gestion des utilisateurs
+from django.contrib.auth.models import User
 
-class UserProfileInfo(models.Model): #Infos persos
-    #On lie les infos persos aux infos de connexion gérées par Django à travers la classe User
+# Infos utilisateur
+class UserProfileInfo(models.Model):
+    # On lie les infos persos aux infos de connexion gérées par Django à travers la classe User
     user = models.OneToOneField(User,on_delete=models.CASCADE, related_name='user_profile')
     avatar = models.FileField(upload_to='avatars',blank=True)
     films = models.ManyToManyField(Film, blank=True, related_name='user_films')
